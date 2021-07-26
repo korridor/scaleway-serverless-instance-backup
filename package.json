@@ -1,0 +1,14 @@
+{
+  "name": "scaleway-instance-backup-function",
+  "description": "",
+  "version": "1.0.0",
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.20.0"
+  },
+  "devDependencies": {
+    "serverless-scaleway-functions": ">=0.2.2"
+  }
+}
