@@ -1,20 +1,21 @@
-service:
-  name: scaleway-backup
+service: scaleway-backup
 configValidationMode: off
 useDotenv: true
+
 provider:
   name: scaleway
   runtime: node14
   stage: production
   scwToken: ${env:SCW_TOKEN}
   scwProject: ${env:SCW_PROJECT}
+
 plugins:
   - serverless-scaleway-functions
 
 package:
-  exclude:
-    - .gitignore
-    - .git/**
+  patterns:
+    - '!.gitignore'
+    - '!.git/**'
 
 functions:
   backup:

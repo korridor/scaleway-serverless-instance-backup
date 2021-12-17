@@ -11,8 +11,8 @@ module.exports.handle = (event, context, callback) => {
     let needsBackup = true;
 
     axios({
-        method: "get",
-        url: "/instance/v1/zones/{zone}/snapshots".replace('{zone}', zone),
+        method: 'get',
+        url: '/instance/v1/zones/{zone}/snapshots'.replace('{zone}', zone),
         baseURL: apiUrl,
         headers: {
             'X-Auth-Token': token,
@@ -25,13 +25,13 @@ module.exports.handle = (event, context, callback) => {
         .then(response => {
             let snapshots = response.data.snapshots;
             for (let snapshot of snapshots) {
-                if (volume === snapshot.base_volume.id) {
+                if (snapshot.base_volume !== null && volume === snapshot.base_volume.id) {
                     let diff = new Date().getTime() - new Date(snapshot.creation_date).getTime();
                     let dayDiff = diff / 86400000;
                     if (dayDiff >= 7) {
                         axios({
-                            method: "delete",
-                            url: "/instance/v1/zones/{zone}/snapshots/{snapshot_id}"
+                            method: 'delete',
+                            url: '/instance/v1/zones/{zone}/snapshots/{snapshot_id}'
                                 .replace('{zone}', zone)
                                 .replace('{snapshot_id}', snapshot.id),
                             baseURL: apiUrl,
@@ -83,12 +83,11 @@ module.exports.handle = (event, context, callback) => {
         console.log(reason)
     }));
 
-    const result = {
-        message: 'Hello from Serverless Framework and Scaleway Functions :D',
-    };
     const response = {
         statusCode: 200,
-        body: JSON.stringify(result),
+        body: JSON.stringify({
+            message: 'done',
+        }),
     };
 
     // either return cb(undefined, response) or return response
