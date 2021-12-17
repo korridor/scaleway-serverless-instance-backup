@@ -1,6 +1,6 @@
-# Scaleway serverless automatic instance backup
+# Scaleway serverless automatic volume backup
 
-This serverless function creates a backup of a given Scaleway instance every day and deletes all backups of the same instance older than seven days.
+This serverless function creates a backup of a given Scaleway volume every day and deletes all backups of the same volume older than seven days.
 
 ## Usage
 
